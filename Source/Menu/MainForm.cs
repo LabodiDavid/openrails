@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Open Rails.  If not, see <http://www.gnu.org/licenses/>.
 
+using Discord;
 using GNU.Gettext;
 using GNU.Gettext.WinForms;
 using Orts.Formats.OR;
@@ -109,7 +110,7 @@ namespace ORTS
         public UserAction SelectedAction { get; set; }
 
         GettextResourceManager catalog = new GettextResourceManager("Menu");
-
+        OrDiscord orDiscord = new OrDiscord();
         #region Main Form
         public MainForm()
         {
@@ -259,6 +260,7 @@ namespace ORTS
                 LoadFolderList();
                 Initialized = true;
             }
+            orDiscord.UpdateStatus(false);
         }
 
         void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -571,6 +573,7 @@ namespace ORTS
                 if (SelectedTimetableTrain != null)
                     DialogResult = DialogResult.OK;
             }
+            orDiscord.UpdateStatus(true, comboBoxStartAt.Text, comboBoxHeadTo.Text);
         }
 
         void buttonResume_Click(object sender, EventArgs e)
